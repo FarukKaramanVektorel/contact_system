@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EventCreateReqDto {	
+public class EventCreateReqDto {
+	private Long id;
 	private Long contactId;
 	private LocalDate date;
 	private String description;

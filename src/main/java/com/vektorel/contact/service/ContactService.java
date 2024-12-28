@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.vektorel.contact.utils.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,21 @@ public class ContactService {
 		}
 		return mapper.map(conSaved, ContactResponseDto.class);
 	}
-	
+	public ContactResponseDto update(ContactRequestDto dto) {
+		Contact existingContact = conRepository.findById(dto.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("Contact not found"));
+
+		mapper.map(dto, existingContact);
+		Contact updatedContact = conRepository.save(existingContact);
+		return convertDto(updatedContact);
+	}
+
+	public List<ContactResponseDto> search(String keyword) {
+		List<Contact> contacts = conRepository.findByNameContainingOrLastnameContaining(keyword, keyword);
+		return contacts.stream()
+				.map(this::convertDto)
+				.collect(Collectors.toList());
+	}
 	public ContactResponseDto getById(Long id) {
 		Contact con=conRepository.findById(id).orElse(null);
 		return convertDto(con);

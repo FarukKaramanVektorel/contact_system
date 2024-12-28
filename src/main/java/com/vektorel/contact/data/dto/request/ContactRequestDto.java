@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ContactRequestDto {
+    private Long id;
+    private String name;
+    private String lastname;
+    private Boolean status;
+    private CategoryDto category;
+    private ContactInfoCreateReqDto info;
 
-	private String name;
-	private String lastname;
-	private Boolean status;
-	private CategoryDto category;
-	private ContactInfoCreateReqDto info;
-	
-	
+
 }

@@ -1,14 +1,12 @@
 package com.vektorel.contact.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.vektorel.contact.data.dto.EventDto;
 import com.vektorel.contact.data.dto.request.EventCreateReqDto;
 import com.vektorel.contact.service.EventService;
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/events")
@@ -18,6 +16,26 @@ public class EventController {
 	@PostMapping("/add")
 	public EventDto create(EventCreateReqDto dto) {
 		return service.create(dto);
+	}
+
+	@GetMapping("/{id}")
+	public EventDto getById(@PathVariable Long id) {
+		return service.getById(id);
+	}
+
+	@GetMapping
+	public List<EventDto> getAll() {
+		return service.getAll();
+	}
+
+	@PutMapping("/update")
+	public EventDto update(@RequestBody EventCreateReqDto dto) {
+		return service.update(dto);
+	}
+
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable Long id) {
+		service.delete(id);
 	}
 
 }

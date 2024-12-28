@@ -2,14 +2,7 @@ package com.vektorel.contact.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.vektorel.contact.data.dto.ContactDto;
 import com.vektorel.contact.data.dto.request.ContactRequestDto;
@@ -48,4 +41,13 @@ public class ContactController {
 		return service.findByCategory(categoryId);
 	}
 
+	@PutMapping("/update")
+	public ContactResponseDto update(@RequestBody ContactRequestDto dto) {
+		return service.update(dto);
+	}
+
+	@GetMapping("/search")
+	public List<ContactResponseDto> search(@RequestParam String keyword) {
+		return service.search(keyword);
+	}
 }

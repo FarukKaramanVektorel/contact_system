@@ -11,5 +11,5 @@ import com.vektorel.contact.data.model.Contact;
 public interface ContactRepository extends JpaRepository<Contact, Long>{
 	
 	List<Contact> findByCategory(Category category);
-
+	List<Contact> findByNameContainingOrLastnameContaining(String name, String lastname);
 }
