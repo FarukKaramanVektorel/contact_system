@@ -17,18 +17,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="contact_info")
+@Table(name = "contact_info")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ContactInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
+
 	private Long id;
 	@OneToOne
-	@JoinColumn(name="contact_id",referencedColumnName = "id")
-	 @JsonBackReference
+	@JoinColumn(name = "contact_id", referencedColumnName = "id")
+	@JsonBackReference
 	private Contact contact;
 	private String phone;
 	private String eMail;
@@ -36,5 +36,5 @@ public class ContactInfo {
 	private Integer gender;
 	private String address;
 	private String description;
-	
+
 }

@@ -2,20 +2,24 @@ package com.vektorel.contact.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
 
 import com.vektorel.contact.data.dto.CategoryDto;
+import com.vektorel.contact.data.dto.ContactDto;
 import com.vektorel.contact.data.dto.ContactInfoDto;
 import com.vektorel.contact.data.dto.EventDto;
 import com.vektorel.contact.data.dto.request.ContactRequestDto;
 import com.vektorel.contact.data.dto.response.ContactResponseDto;
+import com.vektorel.contact.data.model.Category;
 import com.vektorel.contact.data.model.Contact;
 import com.vektorel.contact.data.model.ContactInfo;
 import com.vektorel.contact.repository.ContactRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -42,19 +46,19 @@ public class ContactService {
 	
 	public ContactResponseDto getById(Long id) {
 		Contact con=conRepository.findById(id).orElse(null);
-		return convetDto(con);
+		return convertDto(con);
 	}
 	
 	public List<ContactResponseDto> getByAll(){
 		List<Contact> cons=conRepository.findAll();
 		List<ContactResponseDto> dtos=new ArrayList<>();
 		for (Contact con : cons) {
-			dtos.add(convetDto(con));			
+			dtos.add(convertDto(con));			
 		}		
 		return dtos;
 	}
 	
-	private ContactResponseDto convetDto(Contact con) {
+	private ContactResponseDto convertDto(Contact con) {
 		ContactResponseDto returnDto=mapper.map(con, ContactResponseDto.class);
 		ContactInfoDto infoDto=mapper.map(con.getInfo(), ContactInfoDto.class);
 		CategoryDto catdto=mapper.map(con.getCategory(), CategoryDto.class);
@@ -64,6 +68,23 @@ public class ContactService {
 		returnDto.setCategoryDto(catdto);
 		returnDto.setEventDto(eventDto);
 		return returnDto;
+	}
+	public String delete(Long id) {
+		if(conRepository.existsById(id)) {
+			Contact con=conRepository.findById(id).orElse(null);
+			conRepository.delete(con);
+			return "Silme işlemi başarılı";
+		}else {
+			return "Aradım açmadı";
+		}
+	}
+	
+	public List<ContactDto> findByCategory(Long categoryId){
+		CategoryDto catDto=catService.getById(categoryId);
+		Category category=mapper.map(catDto, Category.class);		
+		return conRepository.findByCategory(category).stream()
+				.map(con->mapper.map(con, ContactDto.class))
+				.collect(Collectors.toList());
 	}
 	
 	

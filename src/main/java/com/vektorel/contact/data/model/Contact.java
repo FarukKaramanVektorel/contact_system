@@ -19,7 +19,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="contacts")
+@Table(name = "contacts")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,12 +32,13 @@ public class Contact {
 	private String lastname;
 	private Boolean status;
 	@ManyToOne
-	@JoinColumn(name="category_id", referencedColumnName = "id")
-	private Category category; 
+	@JoinColumn(name = "category_id", referencedColumnName = "id")
+	@JsonManagedReference 
+	private Category category;
 	@OneToMany(mappedBy = "contact", cascade = CascadeType.ALL)
-	private List<Event> event;	
+	private List<Event> event;
 	@OneToOne(mappedBy = "contact", cascade = CascadeType.ALL)
-	  @JsonManagedReference
+	@JsonManagedReference
 	private ContactInfo info;
-	
+
 }
