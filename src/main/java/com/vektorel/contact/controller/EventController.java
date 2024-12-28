@@ -14,7 +14,7 @@ import java.util.List;
 public class EventController {
 	private final EventService service;
 	@PostMapping("/add")
-	public EventDto create(EventCreateReqDto dto) {
+	public EventDto create(@RequestBody EventCreateReqDto dto) {
 		return service.create(dto);
 	}
 
