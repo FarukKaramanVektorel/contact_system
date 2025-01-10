@@ -29,6 +29,6 @@ jobs:
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         application_name: contact_systeem  # Elastic Beanstalk uygulama adı
         environment_name: Contactsysteem-env  # Elastic Beanstalk ortam adı
-        region: ${{ secrets.AWS_REGION }}
-        version_label: v1-${{ github.run_number }}
-        zip_file: target/contact-system-0.0.1-SNAPSHOT.jar
+        region: eu-north-1a  # AWS bölgesini burada belirtin    
+        version_label: v1-2
+        deployment_package: target/contact-system-0.0.1-SNAPSHOT.jar
