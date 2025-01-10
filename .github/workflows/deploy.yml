@@ -25,8 +25,8 @@ jobs:
     - name: Deploy to Elastic Beanstalk
       uses: einaregilsson/beanstalk-deploy@v20
       with:
-        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_access_key: key-0570bce8c4bc2ff1a
+        aws_secret_key: 50:68:43:f1:c9:03:3b:7d:bc:c2:98:5b:22:70:22:d2:e9:9b:43:9f
         application_name: contact_systeem  # Elastic Beanstalk uygulama adı
         environment_name: Contactsysteem-env  # Elastic Beanstalk ortam adı
         region: eu-north-1a  # AWS bölgesini burada belirtin    
